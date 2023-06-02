@@ -1,0 +1,261 @@
+[
+    {
+        "id": "425655d2b141bdaa",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "87da0eb55566a080",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ec5858a9c63b375b",
+        "type": "telegram bot",
+        "botname": "Name_of_Bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "f160031f44835f95",
+        "type": "whin-config",
+        "name": "whin",
+        "phone": "Your_Phone_Number",
+        "token": "Your_Whin_Token"
+    },
+    {
+        "id": "d3d0a32b6e2f2f8a",
+        "type": "telegram bot",
+        "botname": "inovationlifetechbot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "5485c65d.c921c8",
+        "type": "telegram bot",
+        "botname": "JoaoBatistaBot",
+        "usernames": "",
+        "chatids": ""
+    },
+    {
+        "id": "0e063ba28c863cc2",
+        "type": "google-translate",
+        "z": "425655d2b141bdaa",
+        "from": "auto",
+        "name": "",
+        "to": "pt",
+        "x": 300,
+        "y": 360,
+        "wires": [
+            [
+                "f066d81c36287dd4"
+            ]
+        ]
+    },
+    {
+        "id": "22f04481daec7f9b",
+        "type": "inject",
+        "z": "425655d2b141bdaa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Just trying",
+        "payloadType": "str",
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "0e063ba28c863cc2"
+            ]
+        ]
+    },
+    {
+        "id": "f066d81c36287dd4",
+        "type": "debug",
+        "z": "425655d2b141bdaa",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "2222bafb.872c86",
+        "type": "telegram receiver",
+        "z": "87da0eb55566a080",
+        "name": "",
+        "bot": "d3d0a32b6e2f2f8a",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "3e0a95af.e5f08a"
+            ],
+            [
+                "10222f18.29e139"
+            ]
+        ]
+    },
+    {
+        "id": "3e0a95af.e5f08a",
+        "type": "function",
+        "z": "87da0eb55566a080",
+        "name": "Save context",
+        "func": "context.flow.chatId = msg.payload.chatId;\ncontext.flow.type = msg.payload.type;\nmsg.payload = msg.payload.content;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 297.5,
+        "y": 233.75,
+        "wires": [
+            [
+                "b82ed40c4bf64974"
+            ]
+        ]
+    },
+    {
+        "id": "3c133c0c.807744",
+        "type": "function",
+        "z": "87da0eb55566a080",
+        "name": "Restore context",
+        "func": "msg.payload.chatId = context.flow.chatId;\nmsg.payload.type = context.flow.type;\nmsg.payload.content = msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 654,
+        "y": 233.9375,
+        "wires": [
+            [
+                "bf4a1e56.e282c"
+            ]
+        ]
+    },
+    {
+        "id": "bf4a1e56.e282c",
+        "type": "telegram sender",
+        "z": "87da0eb55566a080",
+        "name": "",
+        "bot": "d3d0a32b6e2f2f8a",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10222f18.29e139",
+        "type": "function",
+        "z": "87da0eb55566a080",
+        "name": "Not authorized user",
+        "func": "msg.payload.content = \"You're not authorized user\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 508.75,
+        "y": 383.4375,
+        "wires": [
+            [
+                "bf4a1e56.e282c"
+            ]
+        ]
+    },
+    {
+        "id": "c61665b5.dc1d8",
+        "type": "comment",
+        "z": "87da0eb55566a080",
+        "name": "Read.me",
+        "info": "1) Create a Watson Conversation on IBM Cloud (https://www.bluemix.net)\n2) Create a Telegram Bot:\n   Open web.telegram.org\n   find BotFather (contact)\n   send /newbot\n   Give a name for your bot (Botfather will ask it)\n   Give a user name for it, which should have in the end \"Bot\"\n   The BotFather will give you a token.\n   ",
+        "x": 92.5,
+        "y": 194.68746948242188,
+        "wires": []
+    },
+    {
+        "id": "b82ed40c4bf64974",
+        "type": "watson-assistant-v2",
+        "z": "87da0eb55566a080",
+        "name": "",
+        "service-endpoint": "https://api.au-syd.assistant.watson.cloud.ibm.com/instances/faec9365-de8b-44cb-b12f-0e77185b180e",
+        "assistant_id": "78c2db60-120d-4de0-9195-76cd3a58ec43",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": false,
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "3c133c0c.807744"
+            ]
+        ]
+    }
+]
